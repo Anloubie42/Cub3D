@@ -37,6 +37,7 @@ LIB_SRCS_NAME	=	ft_toupper.c			\
 					ft_putendl_fd.c			\
 					ft_putnbr_fd.c			\
 					get_next_line.c			\
+					ft_clear.c				\
 
 INCS_NAME		=	libft.h
 
@@ -62,7 +63,7 @@ all: $(NAME)
 $(NAME): $(LIB_OBJS)
 	@ar rc $(NAME) $(LIB_OBJS)
 	@ranlib $(NAME)
-	@echo Libft OK
+	@echo "\033[32;01m[libft OK]\033[00m"
 
 $(LIB_OBJS_DIR)%.o:  $(LIB_SRCS_DIR)%.c $(INCS)
 	@mkdir -p ./objs/

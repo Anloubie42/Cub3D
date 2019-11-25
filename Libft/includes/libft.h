@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:44:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/19 14:29:46 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/20 14:44:58 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "get_next_line.h"
 
 typedef struct		s_list
 {
@@ -71,5 +72,6 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_clear(char **str);
 
 #endif

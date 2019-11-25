@@ -6,7 +6,7 @@
 #    By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 13:12:09 by anloubie          #+#    #+#              #
-#    Updated: 2019/11/19 16:09:26 by anloubie         ###   ########.fr        #
+#    Updated: 2019/11/25 16:51:38 by anloubie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,14 @@ NAME	=		Cub3D
 
 # Sources
 
-SRCS_NAME	=	Cub3D.c		\
+SRCS_NAME	=	main.c					\
+				ft_parse.c				\
+				ft_set.c				\
+				ft_exit.c				\
+				ft_map.c				\
+				ft_lst.c				\
+				ft_display.c			\
+				ft_display_2.c			\
 
 INCS_NAME	=	Cub3D.h
 
@@ -37,7 +44,7 @@ LIB			=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 # Compilation
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -I $(INCS_DIR)
+CFLAGS		=	-Wall -Wextra -Werror -g3 -I $(INCS_DIR)
 LIBH		=	-I $(LIB_DIR)includes/
 MLX_FLAGS	=	-I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
@@ -48,7 +55,7 @@ $(LIB):
 
 $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(MLX_FLAGS) $(OBJS) $(LIB) -o $(NAME)
-	@echo Cub3D OK
+	@echo "\033[32;01m[Cub3D OK]\033[00m"
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(INCS)
 	@mkdir -p $(OBJS_DIR)
@@ -63,7 +70,7 @@ clean:
 
 fclean: librm clean
 	@rm -f $(NAME)
-	@echo Cub3D fclean OK
+	@echo "\033[32;01m[Cub3D fclean OK]\033[00m"
 
 re: fclean all
 

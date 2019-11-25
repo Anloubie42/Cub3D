@@ -1,0 +1,18 @@
+R 1920 1080
+
+NO texture_NO.png
+
+SO texture_SO.png
+
+WE texture_WE.png
+
+EA texture_EA.png
+
+S texture_SPRITE.png
+
+F 255,0,255
+C 60,0,10
+
+1 1 1 1 1
+1 0 0 0 1
+1 1 1 1 1

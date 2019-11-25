@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_clear.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 11:37:49 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/20 15:52:01 by anloubie         ###   ########.fr       */
+/*   Created: 2019/11/20 14:06:02 by anloubie          #+#    #+#             */
+/*   Updated: 2019/11/20 14:07:08 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void		ft_clear(char **str)
 {
-	int		len1;
-	int		len2;
-	char	*dest;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	if (!(dest = (char*)malloc(sizeof(char) * (len1 + len2 + 1))))
-		return (NULL);
-	while (s1 && s1[i])
-		dest[j++] = s1[i++];
-	i = 0;
-	while (s2 && s2[i])
-		dest[j++] = s2[i++];
-	dest[j] = '\0';
-	return (dest);
+	if (str && *str)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }

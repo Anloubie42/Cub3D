@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 11:37:49 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/20 15:52:01 by anloubie         ###   ########.fr       */
+/*   Created: 2019/11/20 16:09:17 by anloubie          #+#    #+#             */
+/*   Updated: 2019/11/25 14:43:25 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "Cub3D.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int		ft_exit(t_Cub3D *s)
 {
-	int		len1;
-	int		len2;
-	char	*dest;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	if (!(dest = (char*)malloc(sizeof(char) * (len1 + len2 + 1))))
-		return (NULL);
-	while (s1 && s1[i])
-		dest[j++] = s1[i++];
-	i = 0;
-	while (s2 && s2[i])
-		dest[j++] = s2[i++];
-	dest[j] = '\0';
-	return (dest);
+	(void)s;
+	if (s->data->mlx_ptr && s->data->mlx_win)
+		mlx_destroy_window(s->data->mlx_ptr, s->data->mlx_win);
+	free(s->data);
+	exit(0);
+	return (0);
 }
