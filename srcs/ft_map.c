@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 13:44:17 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/25 14:37:24 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:38:39 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*ft_str_epur(char *str, t_Cub3D *s)
 		i++;
 	}
 	dest[j] = '\0';
-	ft_clear(&str);
+	// ft_clear(&str);
 	return (dest);
 }
 

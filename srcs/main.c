@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:57:54 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/25 17:25:03 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:13:42 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ int		ft_key(int key, t_Cub3D *s)
 	printf("key = %d\n", key);
 	if (key == 53)
 		ft_exit(s);
+	if (key == 126)
+		move_foreward(s);
+	if (key == 125)
+		move_backwards(s);
+	if (key == 123)
+		rot_left(s);
+	if (key == 124)
+		rot_right(s);
 	return (1);
 }
 
@@ -56,14 +64,14 @@ int		main(int ac, char **av)
 	ft_parse(&s, av[1]);
 	ft_print_se(&s);
 	if (!(s.data->mlx_ptr = mlx_init()))
-		return (EXIT_FAILURE);
+		return (0);
 	if (!(s.data->mlx_win = mlx_new_window(s.data->mlx_ptr, s.res_x, s.res_y,
 	"Cub3D")))
-		return (EXIT_FAILURE);
+		return (0);
 	ft_create_img(&s);
 	ft_pos_calc(&s);
-	mlx_key_hook(s.data->mlx_win, ft_key, &s);
+	mlx_hook(s.data->mlx_win, 2, 0, ft_key, &s);
 	mlx_hook(s.data->mlx_win, 17, 0, ft_exit, &s);
 	mlx_loop(s.data->mlx_ptr);
-	return (EXIT_SUCCESS);
+	return (1);
 }

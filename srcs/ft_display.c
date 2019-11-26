@@ -6,146 +6,131 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:52:15 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/25 18:04:41 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:08:36 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cub3D.h"
 
-/*void		ft_display(t_Cub3D *s)
+void		draw(t_Cub3D *s)
 {
-	int	*test;
-	int		i = 0;
-	int		a;
-	int		b;
-	int		c;
-	int blue, red, green, color;
+	int	i;
 
-	s->data.img_ptr = mlx_new_image(s->data.mlx_ptr, s->res_x, s->res_y);
-	test = (int*)mlx_get_data_addr(s->data.img_ptr, &a, &b, &c);
-	red = 255;
-	blue = 125;
-	green = 125;
-	color = 0;
-	color = color | (red << 16);
-	color = color | (green << 8);
-	color = color | (blue << 0);
-	int j = 0;
-	b /= 4;
-	while (j < s->res_y)
+	i = 0;
+	s->calc->line_height = (int)(s->res_y / s->calc->perp_wall_dist);
+	s->calc->draw_start = -s->calc->line_height / 2 + s->res_y / 2;
+	s->calc->draw_start < 0 ? s->calc->draw_start = 0 : 0;
+	s->calc->draw_end = s->calc->line_height / 2 + s->res_y / 2;
+	s->calc->draw_end >= s->res_y ? s->calc->draw_end = s->res_y - 1 : 0;
+	while (i < s->res_y)
 	{
-		i = b * j;
-		while (i <= b + j * b)
-			test[i++] = color;
-		j++;
+		if (i > s->calc->draw_end)
+			s->col->tab[s->calc->x + s->res_x * i] =
+			ft_get_color(s->col_f[0], s->col_f[1], s->col_f[2]);
+		else if (i <= s->calc->draw_end && i >= s->calc->draw_start)
+			s->col->tab[s->calc->x + s->res_x * i] = ft_get_color(166, 132, 138);
+		else if (i < s->calc->draw_start)
+			s->col->tab[s->calc->x + s->res_x * i] =
+			ft_get_color(s->col_c[0], s->col_c[1], s->col_c[2]);
+		i++;
 	}
-	// printf("%d\n", b);
-	// printf("%d\n", c);
-	// while (j < s->res_y)
-	// {
-		// i = b * j;
-		// while (i <= b + j * b - 4)
-		// {
-			// test[i] = blue;
-			// test[i + 1] = green;
-			// test[i + 2] = red;
-			// test[i + 3] = 0;
-			// i += 4;
-		// }
-		// j++;
-	// }
-	mlx_put_image_to_window (s->data.mlx_ptr, s->data.mlx_win, s->data.img_ptr, 0, 0);
-}*/
-
-void		ft_dist_calc_2(t_Cub3D *s)
-{
-	while (s->calc->key == 0)
-	{
-		if (s->calc->dist_wall_x < s->calc->dist_wall_y)
-		{
-			s->calc->dist_wall_x += s->calc->dist2_wall_x;
-			s->calc->map_x += s->calc->step_x;
-			s->calc->wall = 0;
-		}
-		else
-		{
-			s->calc->dist_wall_y += s->calc->dist2_wall_y;
-			s->calc->map_y += s->calc->step_y;
-			s->calc->wall = 1;
-		}
-		if (s->map[s->calc->map_x][s->calc->map_y] > '0')
-			s->calc->key = 1;
-	}
-	ft_proj_cam(s);
 }
 
-void		ft_dist_calc(t_Cub3D *s)
+void		ft_init_side_dist(t_Cub3D *s)
 {
-	if (s->calc->ray_dir_x < 0)
+	if (s->calc->ray_dir.x < 0)
 	{
-		s->calc->step_x = -1;
-		s->calc->dist_wall_x = (s->calc->ray_pos_x - s->calc->map_x)
-		* s->calc->dist2_wall_x;
+		s->calc->step.x = -1;
+		s->calc->dist_wall.x = (s->pos.x - s->calc->map.x)
+		* s->calc->delta_dist.x;
 	}
 	else
 	{
-		s->calc->step_x = 1;
-		s->calc->dist_wall_x = (s->calc->map_x + 1.0 - s->calc->ray_pos_x)
-		* s->calc->dist2_wall_x;
+		s->calc->step.x = 1;
+		s->calc->dist_wall.x = (s->calc->map.x + 1.0 - s->pos.x)
+		* s->calc->delta_dist.x;
 	}
-	if (s->calc->ray_dir_y < 0)
+	if (s->calc->ray_dir.y < 0)
 	{
-		s->calc->step_y = -1;
-		s->calc->dist_wall_y = (s->calc->ray_pos_y - s->calc->map_y)
-		* s->calc->dist2_wall_y;
+		s->calc->step.y = -1;
+		s->calc->dist_wall.y = (s->pos.y - s->calc->map.y)
+		* s->calc->delta_dist.y;
 	}
 	else
 	{
-		s->calc->step_y = 1;
-		s->calc->dist_wall_y = (s->calc->map_y + 1.0 - s->calc->ray_pos_y)
-		* s->calc->dist2_wall_y;
+		s->calc->step.y = 1;
+		s->calc->dist_wall.y = (s->calc->map.y + 1.0 - s->pos.y)
+		* s->calc->delta_dist.y;
 	}
-	ft_dist_calc_2(s);
 }
 
-void		ft_init_calc_2(t_Cub3D *s)
+void		ft_init_raycasting(t_Cub3D *s)
+{
+	s->calc->camera_x = 2 * s->calc->x / (double)s->res_x - 1;
+	s->calc->ray_dir.x = s->calc->dir.x + s->calc->plane.x * s->calc->camera_x;
+	s->calc->ray_dir.y = s->calc->dir.y + s->calc->plane.y * s->calc->camera_x;
+	s->calc->map.x = (int)s->pos.x;
+	s->calc->map.y = (int)s->pos.y;
+	s->calc->plane.x = 0;
+	s->calc->plane.y = 0.66;
+	s->calc->delta_dist.x = fabs(1 / s->calc->ray_dir.x);
+	s->calc->delta_dist.y = fabs(1 / s->calc->ray_dir.y);
+	s->calc->hit = 0;
+}
+
+void		set_vertex(double a, double b, t_vertex_d *vertex)
+{
+	vertex->x = a;
+	vertex->y = b;
+}
+
+void		ft_set_dir(t_Cub3D *s)
+{
+	if (s->dir == 'N')
+		set_vertex(-1, 0, &s->calc->dir);
+	else if (s->dir == 'S')
+		set_vertex(1, 0, &s->calc->dir);
+	else if (s->dir == 'E')
+		set_vertex(-1, -1, &s->calc->dir);
+	else if (s->dir == 'W')
+		set_vertex(-1, 1, &s->calc->dir);
+	printf("X = %f\nY = %f\n", s->calc->dir.x, s->calc->dir.y);
+}
+
+void		ft_raycasting(t_Cub3D *s)
 {
 	s->calc->x = 0;
-
 	while (s->calc->x < s->res_x)
 	{
-		s->calc->camera_x = (2 * s->calc->x) / (double)s->res_x - 1;
-		s->calc->ray_pos_x = s->start_x;
-		s->calc->ray_pos_y = s->start_y;
-		s->calc->ray_dir_x = s->calc->dir_x + s->calc->plane_x
-		* s->calc->camera_x;
-		s->calc->ray_dir_y = s->calc->dir_y + s->calc->plane_y
-		* s->calc->camera_x;
-		s->calc->map_x = (int)s->calc->ray_pos_x;
-		s->calc->map_y = (int)s->calc->ray_pos_y;
-		s->calc->dist2_wall_x = sqrt(1
-		+ (s->calc->ray_dir_y * s->calc->ray_dir_y)
-		/ (s->calc->ray_dir_x * s->calc->ray_dir_x));
-		s->calc->dist2_wall_y = sqrt(1
-		+ (s->calc->ray_dir_x * s->calc->ray_dir_x)
-		/ (s->calc->ray_dir_y * s->calc->ray_dir_y));
-		ft_dist_calc(s);
+		ft_init_raycasting(s);
+		ft_init_side_dist(s);
+		while (s->calc->hit == 0)
+		{
+			if (s->calc->dist_wall.x < s->calc->dist_wall.y)
+			{
+				s->calc->dist_wall.x += s->calc->delta_dist.x;
+				s->calc->map.x += s->calc->step.x;
+				s->calc->wall = 0;
+			}
+			else
+			{
+				s->calc->dist_wall.y += s->calc->delta_dist.y;
+				s->calc->map.y += s->calc->step.y;
+				s->calc->wall = 1;
+			}
+			if (s->map[s->calc->map.x][s->calc->map.y] != '0' && s->map[s->calc->map.x][s->calc->map.y] != s->dir)
+				s->calc->hit = 1;
+		}
+		if (s->calc->wall == 0)
+			s->calc->perp_wall_dist = (s->calc->map.x - s->pos.x
+			+ (1 - s->calc->step.x) / 2) / s->calc->ray_dir.x;
+		else
+			s->calc->perp_wall_dist = (s->calc->map.y - s->pos.y
+			+ (1 - s->calc->step.y) / 2) / s->calc->ray_dir.y;
+		draw(s);
 		s->calc->x++;
 	}
-	mlx_put_image_to_window(s->data->mlx_ptr, s->data->mlx_win,
-	s->data->img_ptr, 0, 0);
-}
-
-void		ft_init_calc(t_Cub3D *s)
-{
-	s->calc->dir_x = -1;
-	s->calc->dir_y = 0;
-	s->calc->plane_x = 0;
-	s->calc->plane_y = 0.66;
-	s->calc->time = 0;
-	s->calc->old_time = 0;
-	s->calc->key = 0;
-	ft_init_calc_2(s);
+	mlx_put_image_to_window(s->data->mlx_ptr, s->data->mlx_win, s->data->img_ptr, 0, 0);
 }
 
 void		ft_pos_calc(t_Cub3D *s)
@@ -164,7 +149,8 @@ void		ft_pos_calc(t_Cub3D *s)
 			break ;
 		i++;
 	}
-	s->start_x = i;
-	s->start_y = j;
-	ft_init_calc(s);
+	s->pos.x = i + 0.5;
+	s->pos.y = j + 0.5;
+	ft_set_dir(s);
+	ft_raycasting(s);
 }

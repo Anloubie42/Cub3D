@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:55:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/25 17:54:02 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/26 16:12:27 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 # include "libft.h"
 # include <fcntl.h>
 # include <math.h>
+
+typedef struct		s_vertex_d
+{
+	double			x;
+	double			y;
+}					t_vertex_d;
+
+typedef struct		s_vertex
+{
+	int				x;
+	int				y;
+}					t_vertex;
 
 typedef struct		s_data
 {	
@@ -40,31 +52,20 @@ typedef struct		s_color
 
 typedef struct		s_calc
 {
-	double			dir_x;
-	double			dir_y;
-	double			plane_x;
-	double			plane_y;
-	double			time;
-	double			old_time;
+	t_vertex		map;
+	t_vertex		step;
+	t_vertex_d		dir;
+	t_vertex_d		ray_dir;
+	t_vertex_d		dist_wall;
+	t_vertex_d		delta_dist;
+	t_vertex_d		plane;
+	double			perp_wall_dist;
 	double			camera_x;
-	double			ray_pos_x;
-	double			ray_pos_y;
-	double			ray_dir_x;
-	double			ray_dir_y;
-	int				map_x;
-	int				map_y;
-	double			dist_wall_x;
-	double			dist_wall_y;
-	double			dist2_wall_x;
-	double			dist2_wall_y;
-	double			size_wall;
-	int				step_x;
-	int				step_y;
-	int				key;
+	int				hit;
 	int				wall;
 	int				draw_start;
 	int				draw_end;
-	int				wall_h;
+	int				line_height;
 	int				x;
 }					t_calc;
 
@@ -83,8 +84,7 @@ typedef struct		s_Cub3D
 	int				map_h;
 	int				map_w;
 	char			dir;
-	int				start_x;
-	int				start_y;
+	t_vertex_d		pos;
 	t_data			*data;
 	t_calc			*calc;
 	t_color			*col;
@@ -110,5 +110,11 @@ void				ft_init(t_Cub3D *s);
 void				ft_pos_calc(t_Cub3D *s);
 void				ft_proj_cam(t_Cub3D *s);
 void				ft_create_img(t_Cub3D *s);
+int					ft_get_color(int red, int green, int blue);
+void				move_foreward(t_Cub3D *s);
+void				ft_raycasting(t_Cub3D *s);
+void				move_backwards(t_Cub3D *s);
+void				rot_right(t_Cub3D *s);
+void				rot_left(t_Cub3D *s);
 
 #endif
