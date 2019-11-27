@@ -6,58 +6,70 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:42:02 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/26 16:21:02 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:32:44 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3D.h"
-#define MSPEED 0.1
-#define RSPEED 0.05
+#include "cubddd.h"
 
-void		move_foreward(t_Cub3D *s)
+void		move_foreward(t_cub3d *s)
 {
 	printf("posX = %f\nposY = %f\n", s->pos.x, s->pos.y);
-	if (s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1')
+	if (s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y] == '0'
+	|| s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y]
+	== s->dir)
 		s->pos.x += s->calc->dir.x * MSPEED;
-	else if (s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)] != '1')
+	if (s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)] == '0'
+	|| s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)]
+	== s->dir)
 		s->pos.y += s->calc->dir.y * MSPEED;
 	ft_raycasting(s);
 }
 
-void		move_backwards(t_Cub3D *s)
+void		move_backwards(t_cub3d *s)
 {
-	printf("posX = %f\nposY = %f\n", s->pos.x, s->pos.y);
+	// printf("posX = %f\nposY = %f\n", s->pos.x, s->pos.y);
 	if (s->map[(int)(s->pos.x - s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1')
 		s->pos.x -= s->calc->dir.x * MSPEED;
-	else if (s->map[(int)s->pos.x][(int)(s->pos.y - s->calc->dir.y * MSPEED)] != '1')
+	if (s->map[(int)s->pos.x][(int)(s->pos.y - s->calc->dir.y * MSPEED)] != '1')
 		s->pos.y -= s->calc->dir.y * MSPEED;
 	ft_raycasting(s);
 }
 
-void		rot_right(t_Cub3D *s)
+void		rot_right(t_cub3d *s, double rot_speed)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
 	old_dir_x = s->calc->dir.x;
 	old_plane_x = s->calc->plane.x;
-	s->calc->dir.x = s->calc->dir.x * cos(-RSPEED) - s->calc->dir.y * sin(-RSPEED);
-	s->calc->dir.y = old_dir_x * sin(-RSPEED) + s->calc->dir.y * cos(-RSPEED);
-	s->calc->plane.x = s->calc->plane.x * cos(-RSPEED) - s->calc->plane.y * sin(-RSPEED);
-	s->calc->plane.y = old_plane_x * sin(-RSPEED) + s->calc->plane.y * cos(-RSPEED);
+	s->calc->dir.x = s->calc->dir.x * cos(-rot_speed) - s->calc->dir.y
+	* sin(-rot_speed);
+	s->calc->dir.y = old_dir_x * sin(-rot_speed) + s->calc->dir.y
+	* cos(-rot_speed);
+	s->calc->plane.x = s->calc->plane.x * cos(-rot_speed) - s->calc->plane.y
+	* sin(-rot_speed);
+	s->calc->plane.y = old_plane_x * sin(-rot_speed) + s->calc->plane.y
+	* cos(-rot_speed);
+	printf("X = %f\nY = %f\n", s->calc->dir.x, s->calc->dir.y);
 	ft_raycasting(s);
 }
 
-void		rot_left(t_Cub3D *s)
+void		rot_left(t_cub3d *s, double rot_speed)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
 	old_dir_x = s->calc->dir.x;
 	old_plane_x = s->calc->plane.x;
-	s->calc->dir.x = s->calc->dir.x * cos(RSPEED) - s->calc->dir.y * sin(RSPEED);
-	s->calc->dir.y = old_dir_x * sin(RSPEED) + s->calc->dir.y * cos(RSPEED);
-	s->calc->plane.x = s->calc->plane.x * cos(RSPEED) - s->calc->plane.y * sin(RSPEED);
-	s->calc->plane.y = old_plane_x * sin(RSPEED) + s->calc->plane.y * cos(RSPEED);
+	s->calc->dir.x = s->calc->dir.x * cos(rot_speed) - s->calc->dir.y
+	* sin(rot_speed);
+	s->calc->dir.y = old_dir_x * sin(rot_speed) + s->calc->dir.y
+	* cos(rot_speed);
+	s->calc->plane.x = s->calc->plane.x * cos(rot_speed) - s->calc->plane.y
+	* sin(rot_speed);
+	s->calc->plane.y = old_plane_x * sin(rot_speed) + s->calc->plane.y
+	* cos(rot_speed);
+	printf("X = %f\nY = %f\n", s->calc->dir.x, s->calc->dir.y);
 	ft_raycasting(s);
 }

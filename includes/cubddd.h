@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cub3D.h                                            :+:      :+:    :+:   */
+/*   cubddd.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:55:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 15:00:53 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:41:52 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libft.h"
 # include <fcntl.h>
 # include <math.h>
+# include <time.h>
 
 # define MSPEED 0.2
 # define RSPEED 0.12
@@ -43,11 +44,17 @@ typedef struct		s_vertex
 }					t_vertex;
 
 typedef struct		s_data
-{	
+{
 	void			*mlx_ptr;
 	void			*mlx_win;
 	void			*img_ptr;
 }					t_data;
+
+typedef struct		s_texture
+{
+	t_vertex		len;
+	void			*ptr;
+}					t_texture;
 
 typedef struct		s_color
 {
@@ -80,7 +87,7 @@ typedef struct		s_calc
 	int				x;
 }					t_calc;
 
-typedef struct		s_cub
+typedef struct		s_cub3d
 {
 	int				res_x;
 	int				res_y;
@@ -100,7 +107,7 @@ typedef struct		s_cub
 	t_calc			*calc;
 	t_color			*col;
 	t_key			*key;
-}					t_cub;
+}					t_cub3d;
 
 typedef struct		s_map
 {
@@ -131,5 +138,6 @@ void				rot_left(t_cub3d *s, double rot_speed);
 void				which_wall(t_cub3d *s);
 void				ft_set_dir(t_cub3d *s);
 void				set_vertex(double a, double b, t_vertex_d *vertex);
+void				get_texture(t_cub3d *s);
 
 #endif

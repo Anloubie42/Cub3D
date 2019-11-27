@@ -6,11 +6,11 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:57:10 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/21 16:58:19 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:58:06 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3D.h"
+#include "cubddd.h"
 
 t_map	*ft_lstnewmap(char *str)
 {
@@ -40,7 +40,7 @@ void	ft_lstaddmap(t_map **alst, t_map *new)
 	temp->next = new;
 }
 
-int	ft_mapsize(t_map *lst)
+int		ft_mapsize(t_map *lst)
 {
 	int		i;
 

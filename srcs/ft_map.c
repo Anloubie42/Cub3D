@@ -6,13 +6,13 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 13:44:17 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/26 14:38:39 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/27 15:00:53 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3D.h"
+#include "cubddd.h"
 
-char		*ft_str_epur(char *str, t_Cub3D *s)
+char		*ft_str_epur(char *str, t_cub3d *s)
 {
 	int		i;
 	int		len;
@@ -37,11 +37,10 @@ char		*ft_str_epur(char *str, t_Cub3D *s)
 		i++;
 	}
 	dest[j] = '\0';
-	// ft_clear(&str);
 	return (dest);
 }
 
-int			ft_map_valid(char c, t_Cub3D *s)
+int			ft_map_valid(char c, t_cub3d *s)
 {
 	if ((c <= '2' && c >= '0') || c == ' ')
 		return (1);
@@ -55,7 +54,7 @@ int			ft_map_valid(char c, t_Cub3D *s)
 	return (0);
 }
 
-void		ft_map_create(t_Cub3D *s, char *str, t_map **map)
+void		ft_map_create(t_cub3d *s, char *str, t_map **map)
 {
 	t_map	*new;
 	int		i;
@@ -74,7 +73,7 @@ void		ft_map_create(t_Cub3D *s, char *str, t_map **map)
 	ft_lstaddmap(map, new);
 }
 
-void		ft_map_parse(t_Cub3D *s, t_map *map)
+void		ft_map_parse(t_cub3d *s, t_map *map)
 {
 	int		i;
 

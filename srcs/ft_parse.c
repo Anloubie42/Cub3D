@@ -6,19 +6,20 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:16:12 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/25 16:50:37 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/27 17:52:27 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3D.h"
+#include "cubddd.h"
 
-void			ft_init(t_Cub3D *s)
+void			ft_init(t_cub3d *s)
 {
 	int		i;
 
 	i = 0;
 	s->data = (t_data*)malloc(sizeof(t_data));
 	s->calc = (t_calc*)malloc(sizeof(t_calc));
+	s->key = (t_key*)malloc(sizeof(t_key));
 	if (!(s->col_f = (int*)malloc(sizeof(int) * 3)))
 		return ;
 	if (!(s->col_c = (int*)malloc(sizeof(int) * 3)))
@@ -28,9 +29,13 @@ void			ft_init(t_Cub3D *s)
 	i = 0;
 	while (i < 3)
 		s->col_c[i++] = 0;
+	s->key->up = 0;
+	s->key->down = 0;
+	s->key->left = 0;
+	s->key->right = 0;
 }
 
-void			ft_color(char *str, t_Cub3D *s, int b)
+void			ft_color(char *str, t_cub3d *s, int b)
 {
 	char	**dest;
 	int		len;
@@ -58,7 +63,7 @@ void			ft_color(char *str, t_Cub3D *s, int b)
 		ft_exit(s);
 }
 
-char			*ft_path(char *path, char *str, t_Cub3D *s)
+char			*ft_path(char *path, char *str, t_cub3d *s)
 {
 	char	**dest;
 	int		len;
@@ -73,7 +78,7 @@ char			*ft_path(char *path, char *str, t_Cub3D *s)
 	return (path);
 }
 
-void			ft_parse_2(t_Cub3D *s, char *str, t_map **map)
+void			ft_parse_2(t_cub3d *s, char *str, t_map **map)
 {
 	if (str && str[0] == 'R')
 		ft_resset(s, str);
@@ -95,7 +100,7 @@ void			ft_parse_2(t_Cub3D *s, char *str, t_map **map)
 		ft_map_create(s, str, map);
 }
 
-void			ft_parse(t_Cub3D *s, char *path)
+void			ft_parse(t_cub3d *s, char *path)
 {
 	int		fd;
 	char	*line;

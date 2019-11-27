@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_textures.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/20 16:09:17 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 16:48:13 by anloubie         ###   ########.fr       */
+/*   Created: 2019/11/27 16:17:04 by anloubie          #+#    #+#             */
+/*   Updated: 2019/11/27 18:12:05 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubddd.h"
 
-int		ft_exit(t_cub3d *s)
+void		get_texture(t_cub3d *s)
 {
-	(void)s;
-	if (s->data->mlx_ptr && s->data->mlx_win)
-		mlx_destroy_window(s->data->mlx_ptr, s->data->mlx_win);
-	free(s->data);
-	exit(0);
-	return (0);
+	t_texture	*tab;
+
+	tab = malloc(sizeof(t_texture));
+	if (!(tab->ptr = mlx_xpm_file_to_image(s->data->mlx_ptr, s->path_n,
+	&tab->len.x, &tab->len.y)))
+		ft_exit(s);
+	printf("tab[0] = %s\n", (char*)tab->ptr);
 }

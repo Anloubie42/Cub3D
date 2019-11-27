@@ -6,15 +6,17 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:57:54 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/26 16:13:42 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/27 18:10:05 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cub3D.h"
+#include "cubddd.h"
 
-void		ft_print_se(t_Cub3D *s)
+void	ft_print_se(t_cub3d *s)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	printf("res_x = %d\n", s->res_x);
 	printf("res_y = %d\n", s->res_y);
 	printf("path_n = %s\n", s->path_n);
@@ -38,28 +40,54 @@ void		ft_print_se(t_Cub3D *s)
 		printf("%s\n", s->map[i++]);
 }
 
-int		ft_key(int key, t_Cub3D *s)
+int		move(t_cub3d *s)
+{
+	if (s->key->up == 1)
+		move_foreward(s);
+	if (s->key->down == 1)
+		move_backwards(s);
+	if (s->key->left == 1)
+		rot_left(s, RSPEED);
+	if (s->key->right == 1)
+		rot_right(s, RSPEED);
+	return (1);
+}
+
+int		ft_key_release(int key, t_cub3d *s)
+{
+	if (key == 126)
+		s->key->up = 0;
+	if (key == 125)
+		s->key->down = 0;
+	if (key == 123)
+		s->key->left = 0;
+	if (key == 124)
+		s->key->right = 0;
+	return (1);
+}
+
+int		ft_key_press(int key, t_cub3d *s)
 {
 	printf("key = %d\n", key);
 	if (key == 53)
 		ft_exit(s);
 	if (key == 126)
-		move_foreward(s);
+		s->key->up = 1;
 	if (key == 125)
-		move_backwards(s);
+		s->key->down = 1;
 	if (key == 123)
-		rot_left(s);
+		s->key->left = 1;
 	if (key == 124)
-		rot_right(s);
+		s->key->right = 1;
 	return (1);
 }
 
 int		main(int ac, char **av)
 {
-	t_Cub3D		s;
+	t_cub3d		s;
 
 	(void)ac;
-	ft_bzero(&s, sizeof(t_Cub3D));
+	ft_bzero(&s, sizeof(t_cub3d));
 	ft_init(&s);
 	ft_parse(&s, av[1]);
 	ft_print_se(&s);
@@ -70,8 +98,10 @@ int		main(int ac, char **av)
 		return (0);
 	ft_create_img(&s);
 	ft_pos_calc(&s);
-	mlx_hook(s.data->mlx_win, 2, 0, ft_key, &s);
+	mlx_hook(s.data->mlx_win, 2, 0, ft_key_press, &s);
+	mlx_hook(s.data->mlx_win, 3, 0, ft_key_release, &s);
 	mlx_hook(s.data->mlx_win, 17, 0, ft_exit, &s);
+	mlx_loop_hook(s.data->mlx_ptr, move, &s);
 	mlx_loop(s.data->mlx_ptr);
 	return (1);
 }
