@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:55:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 16:41:52 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:41:12 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ typedef struct		s_data
 	void			*img_ptr;
 }					t_data;
 
-typedef struct		s_texture
-{
-	t_vertex		len;
-	void			*ptr;
-}					t_texture;
-
 typedef struct		s_color
 {
 	int				bpp;
@@ -67,6 +61,14 @@ typedef struct		s_color
 	int				blue;
 	int				color;
 }					t_color;
+
+typedef struct		s_texture
+{
+	t_vertex		len;
+	void			*ptr;
+	int				*addr;
+	t_color			img;
+}					t_texture;
 
 typedef struct		s_calc
 {

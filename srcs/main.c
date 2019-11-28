@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:57:54 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 18:10:05 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:40:46 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		main(int ac, char **av)
 		return (0);
 	ft_create_img(&s);
 	ft_pos_calc(&s);
+	// get_texture(&s);
 	mlx_hook(s.data->mlx_win, 2, 0, ft_key_press, &s);
 	mlx_hook(s.data->mlx_win, 3, 0, ft_key_release, &s);
 	mlx_hook(s.data->mlx_win, 17, 0, ft_exit, &s);

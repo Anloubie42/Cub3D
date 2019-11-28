@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:52:15 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 16:42:03 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:43:19 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		draw_2(t_cub3d *s)
 		else if ((i <= s->calc->draw_end) && (i >= s->calc->draw_start)
 		&& (s->calc->wall == 0))
 			s->col->tab[s->calc->x + s->res_x * i] = (s->calc->ray_dir.x < 0) ?
-			ft_get_color(126, 52, 123) : ft_get_color(52, 56, 126);
+			ft_get_color(150, 23, 87) : ft_get_color(52, 56, 126);
 		else if (i <= s->calc->draw_end && i >= s->calc->draw_start &&
 		s->calc->wall == 1)
 			s->col->tab[s->calc->x + s->res_x * i] = (s->calc->ray_dir.y < 0) ?
