@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:37:00 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 15:00:53 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:43:14 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			ft_get_color(int red, int green, int blue)
 {
 	int		color;
 
-	color = 0;
+	color = 1;
 	color = color | (red << 16);
 	color = color | (green << 8);
 	color = color | blue;
@@ -53,9 +53,14 @@ void		which_wall(t_cub3d *s)
 			s->calc->map.y += s->calc->step.y;
 			s->calc->wall = 1;
 		}
-		if (s->map[s->calc->map.x][s->calc->map.y] != '0'
-		&& s->map[s->calc->map.x][s->calc->map.y] != s->dir)
+		if (s->map[s->calc->map.x][s->calc->map.y] == '1')
 			s->calc->hit = 1;
+		if (s->map[s->calc->map.x][s->calc->map.y] == '2')
+		{
+			s->calc->save.x = s->calc->map.x;
+			s->calc->save.y = s->calc->map.y;
+			s->calc->hit_s = 1;
+		}
 	}
 }
 

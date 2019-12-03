@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:55:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/28 13:41:12 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:42:39 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct		s_texture
 	void			*ptr;
 	int				*addr;
 	t_color			img;
+	t_vertex		tex;
 }					t_texture;
 
 typedef struct		s_calc
@@ -81,12 +82,15 @@ typedef struct		s_calc
 	t_vertex_d		plane;
 	double			perp_wall_dist;
 	double			camera_x;
+	double			wall_x;
 	int				hit;
+	int				hit_s;
 	int				wall;
 	int				draw_start;
 	int				draw_end;
 	int				line_height;
 	int				x;
+	t_vertex		save;
 }					t_calc;
 
 typedef struct		s_cub3d
@@ -109,6 +113,7 @@ typedef struct		s_cub3d
 	t_calc			*calc;
 	t_color			*col;
 	t_key			*key;
+	t_texture		tab[5];
 }					t_cub3d;
 
 typedef struct		s_map
@@ -141,5 +146,9 @@ void				which_wall(t_cub3d *s);
 void				ft_set_dir(t_cub3d *s);
 void				set_vertex(double a, double b, t_vertex_d *vertex);
 void				get_texture(t_cub3d *s);
+void				init_texture(t_cub3d *s);
+void				put_pxl_tex(t_cub3d *s, int i, int a);
+void				ft_init_side_dist(t_cub3d *s);
+void				draw(t_cub3d *s);
 
 #endif

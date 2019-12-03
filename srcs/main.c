@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:57:54 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/28 13:40:46 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:39:08 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		ft_key_release(int key, t_cub3d *s)
 
 int		ft_key_press(int key, t_cub3d *s)
 {
-	printf("key = %d\n", key);
 	if (key == 53)
 		ft_exit(s);
 	if (key == 126)
@@ -96,9 +95,12 @@ int		main(int ac, char **av)
 	if (!(s.data->mlx_win = mlx_new_window(s.data->mlx_ptr, s.res_x, s.res_y,
 	"Cub3D")))
 		return (0);
+	printf("hihi\n");
 	ft_create_img(&s);
+	printf("haha\n");
+	get_texture(&s);
+	printf("hoho\n");
 	ft_pos_calc(&s);
-	// get_texture(&s);
 	mlx_hook(s.data->mlx_win, 2, 0, ft_key_press, &s);
 	mlx_hook(s.data->mlx_win, 3, 0, ft_key_release, &s);
 	mlx_hook(s.data->mlx_win, 17, 0, ft_exit, &s);

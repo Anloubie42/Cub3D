@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:42:02 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 15:32:44 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:35:09 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,15 @@
 
 void		move_foreward(t_cub3d *s)
 {
-	printf("posX = %f\nposY = %f\n", s->pos.x, s->pos.y);
-	if (s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y] == '0'
-	|| s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y]
-	== s->dir)
+	if (s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1')
 		s->pos.x += s->calc->dir.x * MSPEED;
-	if (s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)] == '0'
-	|| s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)]
-	== s->dir)
+	if (s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)] != '1')
 		s->pos.y += s->calc->dir.y * MSPEED;
 	ft_raycasting(s);
 }
 
 void		move_backwards(t_cub3d *s)
 {
-	// printf("posX = %f\nposY = %f\n", s->pos.x, s->pos.y);
 	if (s->map[(int)(s->pos.x - s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1')
 		s->pos.x -= s->calc->dir.x * MSPEED;
 	if (s->map[(int)s->pos.x][(int)(s->pos.y - s->calc->dir.y * MSPEED)] != '1')
@@ -51,7 +45,6 @@ void		rot_right(t_cub3d *s, double rot_speed)
 	* sin(-rot_speed);
 	s->calc->plane.y = old_plane_x * sin(-rot_speed) + s->calc->plane.y
 	* cos(-rot_speed);
-	printf("X = %f\nY = %f\n", s->calc->dir.x, s->calc->dir.y);
 	ft_raycasting(s);
 }
 
@@ -70,6 +63,5 @@ void		rot_left(t_cub3d *s, double rot_speed)
 	* sin(rot_speed);
 	s->calc->plane.y = old_plane_x * sin(rot_speed) + s->calc->plane.y
 	* cos(rot_speed);
-	printf("X = %f\nY = %f\n", s->calc->dir.x, s->calc->dir.y);
 	ft_raycasting(s);
 }
