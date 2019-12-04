@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:21:58 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/28 16:23:06 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/04 13:38:58 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	ft_resset(t_cub3d *s, char *str)
 	ft_del(dest);
 	if (s->res_x <= 0 || s->res_y <= 0 || len != 3)
 		ft_exit(s);
+	if (!(s->sp.zbuffer = (double*)malloc(sizeof(double) * s->res_x)))
+		ft_exit(s);
 }
 
 void	ft_set_dir(t_cub3d *s)
@@ -88,8 +90,6 @@ void	ft_pos_calc(t_cub3d *s)
 	set_vertex(-1, 0, &s->calc->dir);
 	s->calc->plane.x = 0;
 	s->calc->plane.y = 0.66;
-	printf("oui\n");
 	ft_raycasting(s);
-	printf("non\n");
 	ft_set_dir(s);
 }

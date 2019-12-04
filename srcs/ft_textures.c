@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 16:17:04 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/03 17:32:53 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:05:52 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void		put_pxl_tex(t_cub3d *s, int i, int a)
 		s->tab[a].tex.x = s->tab[a].len.y - s->tab[a].tex.x - 1;
 	d = i * 256 - s->res_y * 128 + s->calc->line_height * 128;
 	s->tab[a].tex.y = ((d * s->tab[a].len.y) / s->calc->line_height) / 256;
-	if (s->tab[a].addr[s->tab[a].len.x * s->tab[a].tex.y + s->tab[a].tex.x] == 0 && a == 4)
-		return ;
 	s->col->tab[s->calc->x + s->res_x * i] = s->tab[a].addr[s->tab[a].len.x
 	* s->tab[a].tex.y + s->tab[a].tex.x];
 }

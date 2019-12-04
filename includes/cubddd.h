@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:55:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/03 17:42:39 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:41:13 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@
 # define MSPEED 0.2
 # define RSPEED 0.12
 
-typedef struct		s_key
-{
-	int				up;
-	int				down;
-	int				left;
-	int				right;
-}					t_key;
-
 typedef struct		s_vertex_d
 {
 	double			x;
@@ -42,6 +34,37 @@ typedef struct		s_vertex
 	int				x;
 	int				y;
 }					t_vertex;
+
+typedef struct		s_sprite
+{
+	double			x;
+	double			y;
+	int				tex;
+	t_vertex_d		floor_wall;
+	double			*zbuffer;
+	double			dist_wall;
+	double			dist_player;
+	double			current_dist;
+	double			weight;
+	t_vertex_d		current_floor;
+	t_vertex		floor_tex;
+	int				*sprite_order;
+	double			*sprite_distance;
+}					t_sprite;
+
+typedef struct 		s_info
+{
+	t_vertex_d		co;
+}					t_info;
+
+
+typedef struct		s_key
+{
+	int				up;
+	int				down;
+	int				left;
+	int				right;
+}					t_key;
 
 typedef struct		s_data
 {
@@ -114,6 +137,9 @@ typedef struct		s_cub3d
 	t_color			*col;
 	t_key			*key;
 	t_texture		tab[5];
+	t_sprite		sp;
+	t_info			*sprite;
+	int				obj;
 }					t_cub3d;
 
 typedef struct		s_map
@@ -150,5 +176,8 @@ void				init_texture(t_cub3d *s);
 void				put_pxl_tex(t_cub3d *s, int i, int a);
 void				ft_init_side_dist(t_cub3d *s);
 void				draw(t_cub3d *s);
+void				draw_sprite(t_cub3d *s);
+void				tex_sprite_init(t_cub3d *s);
+void				sprite_count(t_cub3d *s, char *str, int count);
 
 #endif

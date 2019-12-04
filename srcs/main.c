@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:57:54 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/02 17:39:08 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:36:07 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ void	ft_print_se(t_cub3d *s)
 	i = 0;
 	while (s->map[i])
 		printf("%s\n", s->map[i++]);
+	i = 0;
+	while (i < s->obj)
+	{
+		printf("x = %f\n", s->sprite[i].co.x);
+		printf("y = %f\n", s->sprite[i].co.y);
+		i++;
+	}
 }
 
 int		move(t_cub3d *s)

@@ -6,11 +6,16 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:37:00 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/03 17:43:14 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:46:31 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubddd.h"
+
+void		draw_sprite(t_cub3d *s)
+{
+	(void)s;
+}
 
 int			ft_get_color(int red, int green, int blue)
 {

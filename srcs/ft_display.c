@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:52:15 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/03 17:55:26 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:33:59 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ void		draw_2(t_cub3d *s)
 		else if (i < s->calc->draw_start)
 			s->col->tab[s->calc->x + s->res_x * i] =
 			ft_get_color(s->col_c[0], s->col_c[1], s->col_c[2]);
-		//if ((i <= s->calc->draw_end) && (i >= s->calc->draw_start)
-		//&& (s->map[s->calc->save.x][(int)s->calc->save.y] == '2') && s->calc->hit_s)
-		//	put_pxl_tex(s, i, 4);
-		//if ((i <= s->calc->draw_end) && (i >= s->calc->draw_start) && s->map[s->calc->save.x][(int)s->calc->save.y] == '2')
-		//	s->col->tab[s->calc->x + s->res_x * i] = ft_get_color(255, 0, 0);
 	}
 }
 
@@ -49,6 +44,8 @@ void		draw(t_cub3d *s)
 	s->calc->draw_start < 0 ? s->calc->draw_start = 0 : 0;
 	s->calc->draw_end = s->calc->line_height / 2 + s->res_y / 2;
 	s->calc->draw_end >= s->res_y ? s->calc->draw_end = s->res_y - 1 : 0;
+	tex_sprite_init(s);
+	draw_sprite(s);
 	draw_2(s);
 }
 

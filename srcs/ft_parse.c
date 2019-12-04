@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:16:12 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/27 17:52:27 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:06:20 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void			ft_init(t_cub3d *s)
 	s->key->down = 0;
 	s->key->left = 0;
 	s->key->right = 0;
+	s->obj = 0;
 }
 
 void			ft_color(char *str, t_cub3d *s, int b)
