@@ -2,9 +2,9 @@ R 1920 1080
 
 NO ./textures/bluestone.xpm
 
-SO ./textures/colorstone.xpm
+SO ./textures/tex_wall_s.xpm
 
-WE ./textures/greystone.xpm
+WE ./textures/woman_cat.xpm
 
 EA ./textures/redbrick.xpm
 
@@ -14,7 +14,8 @@ F 255,0,100
 C 100,255,255
 
 11111111111
-10010200001
-10200000201
-1100N000001
+100000000N1
+10000000201
+10000000001
 11111111111
+

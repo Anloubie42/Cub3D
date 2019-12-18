@@ -6,16 +6,11 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:37:00 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/04 14:46:31 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/16 14:06:12 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubddd.h"
-
-void		draw_sprite(t_cub3d *s)
-{
-	(void)s;
-}
 
 int			ft_get_color(int red, int green, int blue)
 {
@@ -36,7 +31,7 @@ void		ft_create_img(t_cub3d *s)
 	i = 0;
 	j = 0;
 	if (!(s->col = (t_color*)malloc(sizeof(t_color))))
-		ft_exit(s);
+		ft_exit(s, "Malloc failed");
 	s->data->img_ptr = mlx_new_image(s->data->mlx_ptr, s->res_x, s->res_y);
 	s->col->tab = (int*)mlx_get_data_addr(s->data->img_ptr, &s->col->bpp,
 	&s->col->size, &s->col->endian);
@@ -60,12 +55,6 @@ void		which_wall(t_cub3d *s)
 		}
 		if (s->map[s->calc->map.x][s->calc->map.y] == '1')
 			s->calc->hit = 1;
-		if (s->map[s->calc->map.x][s->calc->map.y] == '2')
-		{
-			s->calc->save.x = s->calc->map.x;
-			s->calc->save.y = s->calc->map.y;
-			s->calc->hit_s = 1;
-		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:55:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/04 17:41:13 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/16 15:34:52 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define MSPEED 0.2
 # define RSPEED 0.12
+# define UDIV 1
+# define VDIV 1
+# define VMOVE 0.0
 
 typedef struct		s_vertex_d
 {
@@ -37,24 +40,31 @@ typedef struct		s_vertex
 
 typedef struct		s_sprite
 {
-	double			x;
-	double			y;
+	t_vertex_d		co;
 	int				tex;
 	t_vertex_d		floor_wall;
-	double			*zbuffer;
 	double			dist_wall;
 	double			dist_player;
 	double			current_dist;
 	double			weight;
 	t_vertex_d		current_floor;
 	t_vertex		floor_tex;
-	int				*sprite_order;
-	double			*sprite_distance;
+	t_vertex_d		transform;
+	int				sprite_order;
+	double			sprite_distance;
+	double			inv_det;
+	int				sprite_screen_x;
+	int				sprite_w;
+	int				sprite_h;
+	int				v_move_screen;
+	t_vertex		draw_start;
+	t_vertex		draw_end;
 }					t_sprite;
 
 typedef struct 		s_info
 {
 	t_vertex_d		co;
+	double			*zbuffer;
 }					t_info;
 
 
@@ -62,8 +72,10 @@ typedef struct		s_key
 {
 	int				up;
 	int				down;
-	int				left;
+	int				rot_left;
+	int				rot_right;
 	int				right;
+	int				left;
 }					t_key;
 
 typedef struct		s_data
@@ -113,7 +125,6 @@ typedef struct		s_calc
 	int				draw_end;
 	int				line_height;
 	int				x;
-	t_vertex		save;
 }					t_calc;
 
 typedef struct		s_cub3d
@@ -137,7 +148,7 @@ typedef struct		s_cub3d
 	t_color			*col;
 	t_key			*key;
 	t_texture		tab[5];
-	t_sprite		sp;
+	t_sprite		*sp;
 	t_info			*sprite;
 	int				obj;
 }					t_cub3d;
@@ -150,7 +161,7 @@ typedef struct		s_map
 
 void				ft_parse(t_cub3d *s, char *path);
 void				ft_resset(t_cub3d *s, char *str);
-int					ft_exit(t_cub3d *s);
+int					ft_exit(t_cub3d *s, char *str);
 int					ft_buflen(char **buf);
 void				ft_del(char **tab);
 void				ft_map_create(t_cub3d *s, char *str, t_map **map);
@@ -166,6 +177,7 @@ int					ft_get_color(int red, int green, int blue);
 void				move_foreward(t_cub3d *s);
 void				ft_raycasting(t_cub3d *s);
 void				move_backwards(t_cub3d *s);
+void				move_left(t_cub3d *s);
 void				rot_right(t_cub3d *s, double rot_speed);
 void				rot_left(t_cub3d *s, double rot_speed);
 void				which_wall(t_cub3d *s);
@@ -177,7 +189,14 @@ void				put_pxl_tex(t_cub3d *s, int i, int a);
 void				ft_init_side_dist(t_cub3d *s);
 void				draw(t_cub3d *s);
 void				draw_sprite(t_cub3d *s);
+void				draw_sprite2(t_cub3d *s, int j);
 void				tex_sprite_init(t_cub3d *s);
 void				sprite_count(t_cub3d *s, char *str, int count);
+void				ft_dswap(double *a, double *b);
+void				ft_iswap(int *a, int *b);
+void				sort_sprites2(int *order, double *dist, int amount);
+void				sprite_draw(t_cub3d *s, int i);
+void				move_right(t_cub3d *s);
+void				sort_sprite(t_cub3d *s);
 
 #endif

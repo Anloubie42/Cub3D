@@ -6,7 +6,7 @@
 #    By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 13:12:09 by anloubie          #+#    #+#              #
-#    Updated: 2019/12/04 16:32:51 by anloubie         ###   ########.fr        #
+#    Updated: 2019/12/13 13:53:15 by anloubie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,10 @@ SRCS_NAME	=	main.c					\
 				ft_display.c			\
 				ft_display_2.c			\
 				ft_move.c				\
+				ft_move2.c				\
 				ft_textures.c			\
 				sprite.c				\
+				sprite2.c				\
 
 INCS_NAME	=	Cub3D.h
 

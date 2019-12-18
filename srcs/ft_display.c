@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:52:15 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/04 17:33:59 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/16 15:24:24 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,33 @@ void		draw_2(t_cub3d *s)
 	i = -1;
 	while (++i < s->res_y)
 	{
-		if (i > s->calc->draw_end)
-			s->col->tab[s->calc->x + s->res_x * i] = ft_get_color(s->col_f[0],
-			s->col_f[1], s->col_f[2]);
-		else if ((i <= s->calc->draw_end) && (i >= s->calc->draw_start)
+		if ((i >= s->calc->draw_start) && (i <= s->calc->draw_end)
 		&& (s->calc->wall == 0))
 			(s->calc->ray_dir.x < 0) ? put_pxl_tex(s, i, 1)
 			: put_pxl_tex(s, i, 0);
-		else if (i <= s->calc->draw_end && i >= s->calc->draw_start &&
+		else if (i >= s->calc->draw_start && i <= s->calc->draw_end &&
 		s->calc->wall == 1)
 			(s->calc->ray_dir.y < 0) ? put_pxl_tex(s, i, 2)
 			: put_pxl_tex(s, i, 3);
+		else if (i > s->calc->draw_end)
+			s->col->tab[s->calc->x + s->res_x * i] = ft_get_color(s->col_f[0],
+			s->col_f[1], s->col_f[2]);
 		else if (i < s->calc->draw_start)
 			s->col->tab[s->calc->x + s->res_x * i] =
 			ft_get_color(s->col_c[0], s->col_c[1], s->col_c[2]);
+		sprite_draw(s, i);
 	}
 }
 
 void		draw(t_cub3d *s)
 {
-	s->calc->wall_x -= floor((s->calc->wall_x));
+	s->calc->wall_x -= floor(s->calc->wall_x);
 	s->calc->line_height = (int)(s->res_y / s->calc->perp_wall_dist);
 	s->calc->draw_start = -s->calc->line_height / 2 + s->res_y / 2;
 	s->calc->draw_start < 0 ? s->calc->draw_start = 0 : 0;
 	s->calc->draw_end = s->calc->line_height / 2 + s->res_y / 2;
 	s->calc->draw_end >= s->res_y ? s->calc->draw_end = s->res_y - 1 : 0;
-	tex_sprite_init(s);
-	draw_sprite(s);
+	sort_sprite(s);
 	draw_2(s);
 }
 
@@ -87,7 +87,6 @@ void		ft_init_raycasting(t_cub3d *s)
 	s->calc->delta_dist.x = fabs(1 / s->calc->ray_dir.x);
 	s->calc->delta_dist.y = fabs(1 / s->calc->ray_dir.y);
 	s->calc->hit = 0;
-	s->calc->hit_s = 0;
 }
 
 void		ft_raycasting(t_cub3d *s)

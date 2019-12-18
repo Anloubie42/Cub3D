@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:16:12 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/04 16:06:20 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/16 15:38:23 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void			ft_init(t_cub3d *s)
 	s->key->down = 0;
 	s->key->left = 0;
 	s->key->right = 0;
+	s->key->rot_left = 0;
+	s->key->rot_right = 0;
 	s->obj = 0;
 }
 
@@ -61,7 +63,7 @@ void			ft_color(char *str, t_cub3d *s, int b)
 		}
 	}
 	if (len != 2)
-		ft_exit(s);
+		ft_exit(s, "Only one color specified");
 }
 
 char			*ft_path(char *path, char *str, t_cub3d *s)
@@ -72,10 +74,11 @@ char			*ft_path(char *path, char *str, t_cub3d *s)
 	dest = ft_split(str, ' ');
 	len = ft_buflen(dest);
 	if (len == 2)
-		path = ft_strdup(dest[1]);
+		if (!(path = ft_strdup(dest[1])))
+			ft_exit(s, "Malloc failed");
 	ft_del(dest);
 	if (len != 2)
-		ft_exit(s);
+		ft_exit(s, "Invalid texture path");
 	return (path);
 }
 
@@ -109,7 +112,8 @@ void			ft_parse(t_cub3d *s, char *path)
 
 	line = NULL;
 	map = NULL;
-	fd = open(path, O_RDONLY);
+	if ((fd = open(path, O_RDONLY)) == -1)
+		ft_exit(s, "Unable to open setting file");
 	while (get_next_line(fd, &line) > 0)
 		ft_parse_2(s, line, &map);
 	ft_parse_2(s, line, &map);

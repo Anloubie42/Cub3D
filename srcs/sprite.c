@@ -6,11 +6,39 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:19:59 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/04 17:55:49 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:13:59 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubddd.h"
+
+void		draw_sprite(t_cub3d *s)
+{
+	int		j;
+
+	j = 0;
+	while (j < s->obj)
+	{
+		s->sp[j].co.x = s->sprite[s->sp[j].sprite_order].co.x - s->pos.x;
+		s->sp[j].co.y = s->sprite[s->sp[j].sprite_order].co.y - s->pos.y;
+		s->sp[j].inv_det = 1.0 / (s->calc->plane.x * s->calc->dir.y
+		- s->calc->dir.x * s->calc->plane.y);
+		s->sp[j].transform.x = s->sp[j].inv_det * (s->calc->dir.y
+		* s->sp[j].co.x - s->calc->dir.x * s->sp[j].co.y);
+		s->sp[j].transform.y = s->sp[j].inv_det * (-s->calc->plane.y
+		* s->sp[j].co.x + s->calc->plane.x * s->sp[j].co.y);
+		s->sp[j].sprite_screen_x = (int)((s->res_x / 2)
+		* (1 + s->sp[j].transform.x / s->sp[j].transform.y));
+		s->sp[j].v_move_screen = (int)(VMOVE / s->sp[j].transform.y);
+		s->sp[j].sprite_h = abs((int)(s->res_y / s->sp[j].transform.y)) / VDIV;
+		s->sp[j].draw_start.y = -s->sp[j].sprite_h / 2
+		+ s->res_y / 2 + s->sp[j].v_move_screen;
+		if (s->sp[j].draw_start.y < 0)
+			s->sp[j].draw_start.y = 0;
+		draw_sprite2(s, j);
+		j++;
+	}
+}
 
 void		sprite_count(t_cub3d *s, char *str, int count)
 {
@@ -30,67 +58,57 @@ void		sprite_count(t_cub3d *s, char *str, int count)
 	}
 }
 
+void		sprite_swap(t_cub3d *s, int j)
+{
+	t_sprite	tmp;
+
+	tmp = s->sp[j];
+	s->sp[j] = s->sp[j + 1];
+	s->sp[j + 1] = tmp;
+}
+
+void		sort_sprite2(t_cub3d *s)
+{
+	t_vertex_d	div;
+	double		res[s->obj];
+	int			j;
+	double		tmp;
+
+	j = -1;
+	while (++j < s->obj)
+	{
+		div.x = fabs(s->pos.x - s->sprite[j].co.x);
+		div.y = fabs(s->pos.y - s->sprite[j].co.y);
+		res[j] = div.x + div.y;
+	}
+	j = -1;
+	while (++j < s->obj)
+	{
+		if (res[j] < res[j + 1])
+		{
+			tmp = res[j];
+			res[j] = res[j + 1];
+			res[j + 1] = tmp;
+			sprite_swap(s, j);
+			j = -1;
+		}
+	}
+}
+
 void		sort_sprite(t_cub3d *s)
 {
-	int	i;
+	int	j;
 
-	i = 0;
-	while (i < s->obj)
+	j = 0;
+	s->sprite->zbuffer[s->calc->x] = s->calc->perp_wall_dist;
+	while (j < s->obj)
 	{
-		s->sp.sprite_order[i] = i;
-		s->sp.sprite_distance[i] = ((s->pos.x - s->sprite[i].co.x)
-		* (s->pos.x - s->sprite[i].co.x) + (s->pos.y - s->sprite[i].co.y)
-		* (s->pos.y - s->sprite[i].co.y));
+		s->sp[j].sprite_order = j;
+		s->sp[j].sprite_distance = ((s->pos.x - s->sprite[j].co.x)
+		* (s->pos.x - s->sprite[j].co.x) + (s->pos.y - s->sprite[j].co.y)
+		* (s->pos.y - s->sprite[j].co.y));
+		j++;
 	}
-}
-
-void		tex_sprite_init2(t_cub3d *s)
-{
-	int		y;
-
-	y = s->calc->draw_end + 1;
-	while (y < s->res_y)
-	{
-		s->sp.current_dist = s->res_y / (2.0 * y - s->res_y);
-		s->sp.weight = (s->sp.current_dist - s->sp.dist_player)
-		/ (s->sp.dist_wall - s->sp.dist_player);
-		s->sp.current_floor.x = s->sp.weight
-		* s->sp.floor_wall.x + (1.0 - s->sp.weight) * s->pos.x;
-		s->sp.current_floor.y = s->sp.weight
-		* s->sp.floor_wall.y + (1.0 - s->sp.weight) * s->pos.y;
-		s->sp.floor_tex.x = ((int)(s->sp.current_floor.x * s->tab[4].len.x)
-		% s->tab[4].len.x);
-		s->sp.floor_tex.y = ((int)(s->sp.current_floor.y * s->tab[4].len.y)
-		% s->tab[4].len.y);
-		y++;
-	}
-	sort_sprite(s);
-}
-
-void		tex_sprite_init(t_cub3d *s)
-{
-	s->sp.zbuffer[s->calc->x] = s->calc->perp_wall_dist;
-	if (s->calc->wall == 0 && s->calc->ray_dir.x > 0)
-	{
-		s->sp.floor_wall.x = s->calc->map.x;
-		s->sp.floor_wall.y = s->calc->map.y + s->calc->wall_x;
-	}
-	else if (s->calc->wall == 0 && s->calc->ray_dir.x < 0)
-	{
-		s->sp.floor_wall.x = s->calc->map.x + 1.0;
-		s->sp.floor_wall.y = s->calc->map.y + s->calc->wall_x;
-	}
-	else if (s->calc->wall == 1 && s->calc->ray_dir.y > 0)
-	{
-		s->sp.floor_wall.x = s->calc->map.x + s->calc->wall_x;
-		s->sp.floor_wall.y = s->calc->map.y;
-	}
-	else if (s->calc->wall == 1 && s->calc->ray_dir.y < 0)
-	{
-		s->sp.floor_wall.x = s->calc->map.x + s->calc->wall_x;
-		s->sp.floor_wall.y = s->calc->map.y + 1.0;
-	}
-	s->sp.dist_wall = s->calc->perp_wall_dist;
-	s->sp.dist_player = 0.0;
-	tex_sprite_init2(s);
+	draw_sprite(s);
+	sort_sprite2(s);
 }
