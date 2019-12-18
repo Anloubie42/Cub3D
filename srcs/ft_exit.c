@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:09:17 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/16 12:59:58 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:30:22 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int		ft_exit(t_cub3d *s, char *str)
 		free(s->path_n);
 	if (s->path_sprite)
 		free(s->path_sprite);
-	if (s->sprite->zbuffer)
-		free(s->sprite->zbuffer);
 	if (s->sprite)
+	{
+		if (s->sprite->zbuffer)
+			free(s->sprite->zbuffer);
 		free(s->sprite);
+	}
 	if (s->sp)
 		free(s->sp);
 	ft_putstr_fd("\033[31m", 1);

@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 12:16:12 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/16 15:38:23 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:52:20 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void			ft_init(t_cub3d *s)
 	s->calc = (t_calc*)malloc(sizeof(t_calc));
 	s->key = (t_key*)malloc(sizeof(t_key));
 	if (!(s->col_f = (int*)malloc(sizeof(int) * 3)))
-		return ;
+		ft_exit(s, "Malloc failed");
 	if (!(s->col_c = (int*)malloc(sizeof(int) * 3)))
-		return ;
+		ft_exit(s, "Malloc failed");
 	while (i < 3)
 		s->col_f[i++] = 0;
 	i = 0;
@@ -63,7 +63,7 @@ void			ft_color(char *str, t_cub3d *s, int b)
 		}
 	}
 	if (len != 2)
-		ft_exit(s, "Only one color specified");
+		ft_exit(s, "Invalid color");
 }
 
 char			*ft_path(char *path, char *str, t_cub3d *s)
@@ -102,6 +102,8 @@ void			ft_parse_2(t_cub3d *s, char *str, t_map **map)
 		ft_color(str, s, 1);
 	else if (str && str[0] == '1')
 		ft_map_create(s, str, map);
+	else if (str && str[0] == '0')
+		ft_exit(s, "Invalid map");
 }
 
 void			ft_parse(t_cub3d *s, char *path)
@@ -112,6 +114,8 @@ void			ft_parse(t_cub3d *s, char *path)
 
 	line = NULL;
 	map = NULL;
+	if (ft_strncmp(path + ft_strlen(path) - 4, ".cub", 4))
+		ft_exit(s, "Invalid extension");
 	if ((fd = open(path, O_RDONLY)) == -1)
 		ft_exit(s, "Unable to open setting file");
 	while (get_next_line(fd, &line) > 0)

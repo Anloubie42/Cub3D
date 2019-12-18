@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 13:51:55 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/13 14:13:54 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:11:58 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void		move_right(t_cub3d *s)
 	* sin(rot_speed);
 	new_dir.y = s->calc->dir.x * sin(rot_speed) + s->calc->dir.y
 	* cos(rot_speed);
-	if (s->map[(int)(s->pos.x - new_dir.x * MSPEED)][(int)s->pos.y] != '1')
+	if (s->map[(int)(s->pos.x - new_dir.x * MSPEED)][(int)s->pos.y] != '1'
+	&& s->map[(int)(s->pos.x - new_dir.x * MSPEED)][(int)s->pos.y] != '2')
 		s->pos.x -= new_dir.x * MSPEED;
-	if (s->map[(int)s->pos.x][(int)(s->pos.y - new_dir.y * MSPEED)] != '1')
+	if (s->map[(int)s->pos.x][(int)(s->pos.y - new_dir.y * MSPEED)] != '1'
+	&& s->map[(int)s->pos.x][(int)(s->pos.y - new_dir.y * MSPEED)] != '2')
 		s->pos.y -= new_dir.y * MSPEED;
 	ft_raycasting(s);
 }

@@ -6,11 +6,21 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 13:44:17 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/16 17:06:40 by anloubie         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:48:51 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubddd.h"
+
+void		ft_map_valid2(char *str, t_cub3d *s)
+{
+	if (!s->map_w)
+		s->map_w = ft_strlen(str);
+	if ((int)ft_strlen(str) != s->map_w)
+		ft_exit(s, "Invalid map : map must be a rectangle");
+	if (str[0] != '1' || str[(int)ft_strlen(str) - 1] != '1')
+		ft_exit(s, "Invalid Map");
+}
 
 char		*ft_str_epur(char *str, t_cub3d *s)
 {
@@ -38,12 +48,6 @@ char		*ft_str_epur(char *str, t_cub3d *s)
 	dest[j] = '\0';
 	ft_map_valid2(dest, s);
 	return (dest);
-}
-
-void		ft_map_valid2(char *str, t_cub3d *s)
-{
-	if (str[0] != '1' || str[(int)ft_strlen(str) - 2] != '1')
-		ft_exit(s, "Invalid Map");
 }
 
 void		ft_map_valid(char *str, t_cub3d *s)
@@ -82,8 +86,6 @@ void		ft_map_create(t_cub3d *s, char *str, t_map **map)
 		ft_exit(s, "Malloc failed");
 	if (!(s->sprite->zbuffer = (double*)malloc(sizeof(double) * s->res_x)))
 		ft_exit(s, "Malloc failed");
-	if (!s->map_w)
-		s->map_w = ft_strlen(str);
 	if (!(new = ft_lstnewmap(str)))
 		ft_exit(s, "Malloc failed");
 	ft_lstaddmap(map, new);
