@@ -38,6 +38,7 @@ LIB_SRCS_NAME	=	ft_toupper.c			\
 					ft_putnbr_fd.c			\
 					get_next_line.c			\
 					ft_clear.c				\
+					ft_strjoinfree.c		\
 
 INCS_NAME		=	libft.h
 

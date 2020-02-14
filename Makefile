@@ -6,7 +6,7 @@
 #    By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/19 13:12:09 by anloubie          #+#    #+#              #
-#    Updated: 2019/12/13 13:53:15 by anloubie         ###   ########.fr        #
+#    Updated: 2020/01/29 14:29:23 by anloubie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME	=		Cub3D
 SRCS_NAME	=	main.c					\
 				ft_parse.c				\
 				ft_set.c				\
+				ft_set2.c				\
 				ft_exit.c				\
 				ft_map.c				\
 				ft_lst.c				\
@@ -27,8 +28,12 @@ SRCS_NAME	=	main.c					\
 				ft_textures.c			\
 				sprite.c				\
 				sprite2.c				\
+				ft_free_struct.c		\
+				screenshot.c			\
+				screenshot2.c			\
+				ft_map2.c
 
-INCS_NAME	=	Cub3D.h
+INCS_NAME	=	cubddd.h
 
 LIB_NAME	=	libft.a
 

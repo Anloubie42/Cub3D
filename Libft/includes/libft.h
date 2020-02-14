@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:44:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/11/20 14:44:58 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/01/10 14:46:34 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_clear(char **str);
+char				*ft_strcat(char *s1, char *s2);
+char				*ft_strjoinfree(char *s1, char *s2, int a);
 
 #endif

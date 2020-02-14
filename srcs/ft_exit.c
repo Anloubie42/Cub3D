@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:09:17 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/18 13:30:22 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/01/07 11:02:36 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,9 @@ int		ft_exit(t_cub3d *s, char *str)
 	int		i;
 
 	i = -1;
-	if (s->data)
-		free(s->data);
-	if (s->calc)
-		free(s->calc);
-	if (s->key)
-		free(s->key);
-	if (s->col_f)
-		free(s->col_f);
-	if (s->col_c)
-		free(s->col_c);
-	if (s->path_e)
-		free(s->path_e);
-	if (s->path_w)
-		free(s->path_w);
-	if (s->path_s)
-		free(s->path_s);
-	if (s->path_n)
-		free(s->path_n);
-	if (s->path_sprite)
-		free(s->path_sprite);
-	if (s->sprite)
-	{
-		if (s->sprite->zbuffer)
-			free(s->sprite->zbuffer);
-		free(s->sprite);
-	}
-	if (s->sp)
-		free(s->sp);
+	(void)s;
 	ft_putstr_fd("\033[31m", 1);
-	if (str != NULL)
+	if (str != NULL && ft_strncmp(str, "closeNotification:", 18))
 	{
 		ft_putstr_fd("<===============================================>\n", 1);
 		ft_putstr_fd("#                    Error                      #\n", 1);

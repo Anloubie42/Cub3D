@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 16:19:59 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/13 15:13:59 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/01/31 13:49:00 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		sprite_count(t_cub3d *s, char *str, int count)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '2')
+		if (str[i] == '2' && s->obj > 0)
 		{
 			s->sprite[j].co.x = count + 0.5;
 			s->sprite[j].co.y = i + 0.5;

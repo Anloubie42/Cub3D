@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 16:17:04 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/16 16:50:39 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/01/23 13:31:42 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		get_texture_2(t_cub3d *s)
 	if (!(s->tab[4].addr = (int*)mlx_get_data_addr(s->tab[4].ptr,
 	&s->tab[4].img.bpp, &s->tab[4].img.size, &s->tab[4].img.endian)))
 		ft_exit(s, "texture loading failed");
+	free_path(s);
 }
 
 void		get_texture(t_cub3d *s)

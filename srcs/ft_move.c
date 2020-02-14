@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:42:02 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/18 13:11:23 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/01/23 13:35:26 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,27 @@ void		move_left(t_cub3d *s)
 	* sin(-rot_speed);
 	new_dir.y = s->calc->dir.x * sin(-rot_speed) + s->calc->dir.y
 	* cos(-rot_speed);
-	if (s->map[(int)(s->pos.x - new_dir.x * MSPEED)][(int)s->pos.y] != '1'
-	&& s->map[(int)(s->pos.x - new_dir.x * MSPEED)][(int)s->pos.y] != '2')
+	if (s->map[(int)(s->pos.x - new_dir.x * MSPEED)][(int)s->pos.y] != '1')
 		s->pos.x -= new_dir.x * MSPEED;
-	if (s->map[(int)s->pos.x][(int)(s->pos.y - new_dir.y * MSPEED)] != '1'
-	&& s->map[(int)s->pos.x][(int)(s->pos.y - new_dir.y * MSPEED)] != '2')
+	if (s->map[(int)s->pos.x][(int)(s->pos.y - new_dir.y * MSPEED)] != '1')
 		s->pos.y -= new_dir.y * MSPEED;
 	ft_raycasting(s);
 }
 
 void		move_foreward(t_cub3d *s)
 {
-	if (s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1'
-	&& s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y] != '2')
+	if (s->map[(int)(s->pos.x + s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1')
 		s->pos.x += s->calc->dir.x * MSPEED;
-	if (s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)] != '1'
-	&& s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)] != '2')
+	if (s->map[(int)s->pos.x][(int)(s->pos.y + s->calc->dir.y * MSPEED)] != '1')
 		s->pos.y += s->calc->dir.y * MSPEED;
 	ft_raycasting(s);
 }
 
 void		move_backwards(t_cub3d *s)
 {
-	if (s->map[(int)(s->pos.x - s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1'
-	&& s->map[(int)(s->pos.x - s->calc->dir.x * MSPEED)][(int)s->pos.y] != '2')
+	if (s->map[(int)(s->pos.x - s->calc->dir.x * MSPEED)][(int)s->pos.y] != '1')
 		s->pos.x -= s->calc->dir.x * MSPEED;
-	if (s->map[(int)s->pos.x][(int)(s->pos.y - s->calc->dir.y * MSPEED)] != '1'
-	&& s->map[(int)s->pos.x][(int)(s->pos.y - s->calc->dir.y * MSPEED)] != '2')
+	if (s->map[(int)s->pos.x][(int)(s->pos.y - s->calc->dir.y * MSPEED)] != '1')
 		s->pos.y -= s->calc->dir.y * MSPEED;
 	ft_raycasting(s);
 }

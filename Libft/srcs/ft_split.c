@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 14:46:55 by anloubie          #+#    #+#             */
-/*   Updated: 2019/10/22 10:09:38 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/01/06 15:43:46 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char			**ft_split(char const *s, char c)
 			i++;
 		}
 	}
-	dest[i] = ft_malloc(s, c);
 	dest[i] = NULL;
 	return (dest);
 }

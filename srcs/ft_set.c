@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 14:21:58 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/18 13:26:54 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/02/06 11:53:53 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	ft_resset(t_cub3d *s, char *str)
 {
 	char	**dest;
 	int		len;
-	int		i;
 
-	i = 0;
+	if (s->res_x || s->res_y)
+		ft_exit(s, "Parameter set twice");
 	dest = ft_split(str, ' ');
 	len = ft_buflen(dest);
 	if (len == 3)
@@ -48,11 +48,16 @@ void	ft_resset(t_cub3d *s, char *str)
 		s->res_x = ft_atoi(dest[1]);
 		s->res_y = ft_atoi(dest[2]);
 	}
+	if (s->res_x % 2 != 0)
+		s->res_x += 1;
+	if (s->res_y % 2 != 0)
+		s->res_y += 1;
 	if (s->res_x > 2560)
 		s->res_x = 2560;
 	if (s->res_y > 1440)
 		s->res_y = 1440;
 	ft_del(dest);
+	ft_clear(&str);
 	if (s->res_x <= 0 || s->res_y <= 0 || len != 3)
 		ft_exit(s, "Invalid resolution specified");
 }
@@ -62,7 +67,7 @@ void	ft_set_dir(t_cub3d *s)
 	if (s->dir == 'S')
 		rot_left(s, M_PI);
 	else if (s->dir == 'E')
-		rot_right(s, (M_PI / 2));
+		rot_left(s, (3 * (M_PI / 2)));
 	else if (s->dir == 'W')
 		rot_left(s, (M_PI / 2));
 }
@@ -89,5 +94,5 @@ void	ft_pos_calc(t_cub3d *s)
 	s->calc->plane.x = 0;
 	s->calc->plane.y = 0.66;
 	ft_set_dir(s);
-	ft_raycasting(s);
+	screen_set(s);
 }

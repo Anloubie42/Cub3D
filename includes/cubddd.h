@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 11:55:29 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/18 13:25:48 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/01/31 14:09:47 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <mlx.h>
 # include "libft.h"
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <math.h>
 # include <time.h>
 
@@ -25,6 +27,22 @@
 # define UDIV 1
 # define VDIV 1
 # define VMOVE 0.0
+
+typedef struct		s_screen
+{
+	unsigned char	*header;
+	int				*file;
+	unsigned int	hold;
+	int				start;
+	int				size;
+	struct tm		*timecomp;
+	char			*file_name;
+	int				raw_size;
+	int				res;
+	int				planes;
+	int				bpp;
+	short			type;
+}					t_screen;
 
 typedef struct		s_vertex_d
 {
@@ -61,12 +79,11 @@ typedef struct		s_sprite
 	t_vertex		draw_end;
 }					t_sprite;
 
-typedef struct 		s_info
+typedef struct		s_info
 {
 	t_vertex_d		co;
 	double			*zbuffer;
 }					t_info;
-
 
 typedef struct		s_key
 {
@@ -139,6 +156,8 @@ typedef struct		s_cub3d
 	char			**map;
 	int				*col_f;
 	int				*col_c;
+	int				color_c;
+	int				color_f;
 	int				map_h;
 	int				map_w;
 	char			dir;
@@ -151,6 +170,7 @@ typedef struct		s_cub3d
 	t_sprite		*sp;
 	t_info			*sprite;
 	int				obj;
+	int				screen;
 }					t_cub3d;
 
 typedef struct		s_map
@@ -198,5 +218,16 @@ void				sort_sprites2(int *order, double *dist, int amount);
 void				sprite_draw(t_cub3d *s, int i);
 void				move_right(t_cub3d *s);
 void				sort_sprite(t_cub3d *s);
+void				malloc_set(t_cub3d *s);
+void				free_path(t_cub3d *s);
+void				free_col(t_cub3d *s);
+int					mapclear(t_cub3d *s, t_map **map, int i);
+char				*ft_str_epur(char *str, t_cub3d *s);
+void				ft_map_valid2(char *str, t_cub3d *s);
+void				screen(t_cub3d *s);
+void				name_screen2(t_cub3d *s, t_screen *shot);
+void				free_shot(t_screen *shot);
+void				screen_set(t_cub3d *s);
+void				map_valid3(t_cub3d *s);
 
 #endif

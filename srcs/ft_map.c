@@ -6,7 +6,7 @@
 /*   By: anloubie <anloubie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 13:44:17 by anloubie          #+#    #+#             */
-/*   Updated: 2019/12/18 13:48:51 by anloubie         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:06:00 by anloubie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,16 @@ char		*ft_str_epur(char *str, t_cub3d *s)
 	}
 	if (!(dest = (char*)malloc(sizeof(char) * len + 1)))
 		ft_exit(s, "Malloc failed");
-	i = 0;
+	i = -1;
 	j = 0;
-	while (str[i])
+	while (str[++i])
 	{
 		if (str[i] != ' ')
-			dest[j++] = str[i++];
+			dest[j++] = str[i];
 	}
 	dest[j] = '\0';
 	ft_map_valid2(dest, s);
+	ft_clear(&str);
 	return (dest);
 }
 
@@ -80,38 +81,23 @@ void		ft_map_create(t_cub3d *s, char *str, t_map **map)
 	t_map	*new;
 
 	ft_map_valid(str, s);
-	if (!(s->sprite = (t_info*)malloc(sizeof(t_info) * s->obj)))
-		ft_exit(s, "Malloc failed");
-	if (!(s->sp = (t_sprite*)malloc(sizeof(t_sprite) * s->obj)))
-		ft_exit(s, "Malloc failed");
-	if (!(s->sprite->zbuffer = (double*)malloc(sizeof(double) * s->res_x)))
-		ft_exit(s, "Malloc failed");
 	if (!(new = ft_lstnewmap(str)))
 		ft_exit(s, "Malloc failed");
 	ft_lstaddmap(map, new);
+	free(str);
 }
 
 void		ft_map_parse(t_cub3d *s, t_map *map)
 {
 	int		i;
-	int		count;
 
 	i = 0;
-	count = 0;
+	malloc_set(s);
 	s->map_h = ft_mapsize(map);
-	if (!(s->map = (char**)malloc(sizeof(char*) * s->map_h)))
+	if (!(s->map_h))
+		ft_exit(s, "invalid map : map must be at least 3x3");
+	if (!(s->map = (char**)malloc(sizeof(char*) * s->map_h + 1)))
 		ft_exit(s, "Malloc failed");
-	while (map)
-	{
-		map->line = ft_str_epur(map->line, s);
-		sprite_count(s, map->line, count);
-		if (!(s->map[i] = (char*)malloc(sizeof(char) * ft_strlen(map->line))))
-			ft_exit(s, "Malloc failed");
-		s->map[i++] = map->line;
-		map = map->next;
-		count++;
-	}
-	if (!(s->map[i] = (char*)malloc(sizeof(char))))
-		ft_exit(s, "Malloc failed");
+	i = mapclear(s, &map, i);
 	s->map[i] = NULL;
 }

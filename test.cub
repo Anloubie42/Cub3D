@@ -1,21 +1,18 @@
-R 1920 1080
+R 1080 720
 
-NO ./textures/bluestone.xpm
+NO ./textures/colorstone.xpm
 
-SO ./textures/tex_wall_s.xpm
-
-WE ./textures/woman_cat.xpm
+SO ./textures/bluestone.xpm
 
 EA ./textures/redbrick.xpm
 
 S ./textures/barrel.xpm
 
-F 255,0,100
-C 100,255,255
+WE ./textures/greystone.xpm
 
-11111111111
-100000000N1
-10000000201
-10000000001
-11111111111
+F 255,255,255
+C 255,255,255
 
+111
+1E1
+111
